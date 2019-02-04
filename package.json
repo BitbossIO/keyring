@@ -1,0 +1,14 @@
+{
+  "name": "@keyring/root",
+  "version": "0.0.0",
+  "description": "Blockchain Tools",
+  "author": "Josh Robinson <hexorx@gmail.com>",
+  "repository": "git@github.com:BitbossIO/keyring.git",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js",
+  "workspaces": ["packages/*"],
+  "devDependencies": {
+    "lerna": "^3.10.7"
+  }
+}
