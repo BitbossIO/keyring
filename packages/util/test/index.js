@@ -5,6 +5,13 @@ const Util = require('../lib');
 
 describe('Reader', () => {
   it('should include all utils', () => {
-    expect(Util).to.have.all.keys('r', 'bn', 'buf', 'Writer', 'Reader');
+    expect(Util).to.have.all.keys(
+      'r',
+      'bn',
+      'buf',
+      'Writer',
+      'Reader',
+      'Parser'
+    );
   });
 });

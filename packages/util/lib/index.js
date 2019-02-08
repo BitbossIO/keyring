@@ -3,7 +3,8 @@ const Util = {
   bn: require('bn.js'),
   buf: require('./buf'),
   Writer: require('./writer'),
-  Reader: require('./reader')
+  Reader: require('./reader'),
+  Parser: require('./parser')
 };
 
 module.exports = Util;
