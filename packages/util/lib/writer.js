@@ -3,7 +3,7 @@ const BN = require('bn.js');
 
 const _ = { buf: require('./buf') };
 
-const Writer = class Writer {
+class Writer {
   constructor(_buf='') {
     if(R.is(Writer, _buf)) { return _buf; }
     this._buf = _.buf.from(_buf);

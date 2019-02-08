@@ -3,7 +3,7 @@ const BN = require('bn.js');
 
 const _ = { buf: require('./buf') };
 
-const Reader = class Reader {
+class Reader {
   constructor(_buf='') {
     if(R.is(Reader, _buf)) { return _buf; }
     this._buf = _.buf.from(_buf);
