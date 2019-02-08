@@ -6,7 +6,16 @@
   "repository": "git@github.com:BitbossIO/keyring.git",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "test": "npx mocha",
+    "test:watch": "npx mocha --watch"
+  },
   "devDependencies": {
+    "chai": "^4.2.0",
     "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "bn.js": "^4.11.8",
+    "ramda": "^0.26.1"
   }
 }
