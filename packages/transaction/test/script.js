@@ -3,6 +3,9 @@ const expect = chai.expect;
 
 const Script = require('../lib/script');
 
+const Chain = require('./mocks/chain');
+const chain = new Chain();
+
 const p2pkh = '76a914c86a5e5deaeefc79ef444d40bb896f7c6253e8ab88ac';
 const p2pkh_asm = 'OP_DUP OP_HASH160 c86a5e5deaeefc79ef444d40bb896f7c6253e8ab OP_EQUALVERIFY OP_CHECKSIG';
 const p2pkh_codes = new Buffer('76a91488ac', 'hex');
@@ -15,6 +18,23 @@ describe('Script', () => {
     it('should return a Script instance', () => {
       let script = new Script();
       expect(script).to.be.an.instanceof(Script);
+    });
+
+    it('should parse a script', () => {
+      let script = new Script(p2pkh);
+      expect(script.hex).to.equal(p2pkh);
+    });
+
+    it('should build a script by type', () => {
+      let script = new Script('p2pkh', 'c86a5e5deaeefc79ef444d40bb896f7c6253e8ab');
+      expect(script.hex).to.equal(p2pkh);
+    });
+  });
+
+  describe('#for', () => {
+    it('should create a class with chain set', () => {
+      let script = new (Script.for(chain.templates('input')))('');
+      expect(script._templates).to.eql([]);
     });
   });
 
@@ -56,12 +76,12 @@ describe('Script', () => {
   describe('template', () => {
     it('should detect p2pkh scripts', () => {
       let script = new Script(p2pkh);
-      expect(script.template).to.equal('p2pkh');
+      expect(script.template.id).to.equal('p2pkh');
     });
 
     it('should detect p2pkhm scripts', () => {
       let script = new Script(p2pkhm);
-      expect(script.template).to.equal('p2pkhm');
+      expect(script.template.id).to.equal('p2pkhm');
     });
   });
 
@@ -73,9 +93,10 @@ describe('Script', () => {
   });
 
   describe('destination', () => {
-    it('should return an array of destinationstn', () => {
+    it('should return an array of destinations', () => {
       let script = new Script(p2pkhm);
       expect(script.destination[0].toString('hex')).to.eql('59288e0ec97813bab904867cdcae0d681f6cce51');
     });
   });
+
 });

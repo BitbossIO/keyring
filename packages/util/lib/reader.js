@@ -13,7 +13,7 @@ class Reader {
 
   get buf() { return this._buf; }
   get hex() { return this._buf.toString('hex'); }
-  get eof() {}
+  get eof() { return this._pos >= this._buf.length; }
 
   read(len, handler='slice') {
     len = parseInt(len);

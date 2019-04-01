@@ -32,7 +32,7 @@ describe('Parser', () => {
       expect(result).to.eql({
         version: 3,
         msg: 4,
-        notes: [{body: 5}, {body: 6}]
+        notes: [{_index: 0, body: 5}, {_index: 1, body: 6}]
       });
     });
 
