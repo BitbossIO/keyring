@@ -1,6 +1,6 @@
 {
   "name": "@keyring/keyring",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Keyring base package",
   "main": "lib/index.js",
   "repository": "https://github.com/BitbossIO/keyring",

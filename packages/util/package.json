@@ -1,6 +1,6 @@
 {
   "name": "@keyring/util",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Keyring util package",
   "main": "lib/index.js",
   "repository": "git@github.com:BitbossIO/keyring.git",
