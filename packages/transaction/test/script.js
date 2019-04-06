@@ -29,6 +29,11 @@ describe('Script', () => {
       let script = new Script('p2pkh', 'c86a5e5deaeefc79ef444d40bb896f7c6253e8ab');
       expect(script.hex).to.equal(p2pkh);
     });
+
+    it('should build a script from asm', () => {
+      let script = new Script('asm', 'OP_DUP OP_HASH160 0c398db55f3edd131431d175e665f252d05b6c3d OP_EQUALVERIFY OP_CHECKSIG');
+      expect(script.hex).to.equal('76a9140c398db55f3edd131431d175e665f252d05b6c3d88ac');
+    });
   });
 
   describe('#for', () => {

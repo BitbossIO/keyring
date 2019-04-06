@@ -14,7 +14,8 @@ class Output {
     }
 
     this.raw = raw;
-    this.index = raw._index;
+    this.tx = raw.tx || {};
+    this.index = raw._index || raw.index;
     this.amount = new (_.bn)(raw.amount || 0);
     this.script = new Script(raw.script || '');
 
@@ -31,6 +32,7 @@ class Output {
   }
 
   get hex() { return this.buf.toString('hex'); }
+  get txid() { return this.raw.txid || this.tx.id; }
 
   clone(output={}) { return new (this._class)(Object.assign(this.raw, output)); }
 

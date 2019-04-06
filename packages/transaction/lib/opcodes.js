@@ -32,7 +32,7 @@ const Opcodes = {
   },
   0x51: {
     identifier: 'OP_TRUE',
-    identifiers: ['OP_FALSE', 'OP_1']
+    identifiers: ['OP_TRUE', 'OP_1']
   },
   0x6a: { identifier: 'OP_RETURN' },
   0x75: { identifier: 'OP_DROP' },

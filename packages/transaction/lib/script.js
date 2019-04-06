@@ -16,17 +16,13 @@ class Script {
     let temp = _.r.is(String, raw) ? this._templateLookup('id', raw) : false;
     if (temp && _.r.is(Function, temp.init)) { raw = temp.init(...args); }
 
-    this.raw = _.buf.from(raw);
-
+    this.raw = raw;
     this._pos = 0;
     this.stack = [];
-    this.opcodes = [];
 
-    this._reader = new _.Reader(this.raw);
-
-    while (!this._reader.eof) {
-      this.opcodes.push(new Opcode(this._reader));
-    }
+    // console.log('args >>', args);
+    if (raw === 'asm') { this.opcodes = Opcode.fromASM.apply(this, args); }
+    else { this.opcodes = Opcode.fromRaw(raw); }
 
     return this;
   }
@@ -46,8 +42,6 @@ class Script {
 
   get _destination() { return this.template.destination; }
   get destination() { return _.r.is(Function, this._destination) ? this._destination(this) : []; }
-
-
 
   static for(templates) {
     class ScriptClass extends Script {
