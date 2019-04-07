@@ -17,7 +17,10 @@ class Output {
     this.tx = raw.tx || {};
     this.index = raw._index || raw.index;
     this.amount = new (_.bn)(raw.amount || 0);
-    this.script = new Script(raw.script || '');
+
+    if (_.r.isNil(raw.script) && _.r.is(String, raw.asm)) {
+      this.script = new Script('asm', raw.asm);
+    } else { this.script = new Script(raw.script || ''); }
 
     return this;
   }

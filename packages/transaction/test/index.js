@@ -85,9 +85,10 @@ describe('Transaction', () => {
   });
 
   describe('from', () => {
-    it('should return the transaction ids for each input', () => {
+    it('should add an input', () => {
       let tx = new Transaction();
-      tx.from(txhex, 1);
+      let txin = new Transaction(txhex);
+      tx.from(txin.outputs[1]);
       expect(tx.inputs.length).to.eql(1);
       expect(tx.inputs[0].script.hex).to.equal('');
       expect(tx.inputs[0].amount.toNumber()).to.equal(21786156117);
@@ -97,7 +98,8 @@ describe('Transaction', () => {
   describe('fee', () => {
     it('should return the current fee', () => {
       let tx = new Transaction();
-      tx.from(txhex, 1);
+      let txin = new Transaction(txhex);
+      tx.from(txin.outputs[1]);
       tx.to(addr, 100);
       expect(tx.fee().toNumber()).to.equal(21786156017);
     });
@@ -106,7 +108,8 @@ describe('Transaction', () => {
   describe('change', () => {
     it('should add a change output', () => {
       let tx = new Transaction();
-      tx.from(txhex, 1);
+      let txin = new Transaction(txhex);
+      tx.from(txin.outputs[1]);
       tx.change(addr);
       expect(tx.fee().toNumber()).to.equal(tx.suggestedFee.toNumber());
     });
@@ -115,7 +118,7 @@ describe('Transaction', () => {
   describe('sign', () => {
     it('should sign all possible inputs', () => {
       let txin = new Transaction().to(hash, 1000).to(hash, 100);
-      let tx = new Transaction().from(txin, 0);
+      let tx = new Transaction().from(txin.outputs[0]);
       let sighash = tx.sighash(0);
       let signature = _.ecc.sign((sighash), private_key);
       let scriptsig = '48' + signature.toString('hex') + '0121' + public_key.toString('hex');

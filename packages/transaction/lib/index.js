@@ -91,19 +91,21 @@ class Transaction {
 
   to(hash, amount) {
     let script = new (this._outputClass.Script)('p2pkh', hash);
-    this.outputs.push(new Output({amount, script}));
+    this.outputs.push(new Output({
+      amount,
+      script,
+      tx: this,
+      index: this.outputs.length
+    }));
     return this;
   }
 
-  from(tx, index=0, sequence) {
-    tx = new (this._class)(tx);
-    let output = tx.outputs[index];
+  from(utxo, sequence) {
     let input = new (this._inputClass)({
-      txid: tx.id,
-      index: index,
-      script: '',
+      txid: utxo.txid,
+      index: utxo.index,
       sequence: sequence
-    }, output.script, output.amount);
+    }, utxo.script, utxo.amount);
     this.inputs.push(input);
     return this;
   }
