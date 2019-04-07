@@ -26,6 +26,8 @@ class Output {
   }
 
   get meta() { return this.script.meta; }
+  get data() { return this.script.data; }
+  get destination() { return this.script.destination; }
 
   get buf() {
     return new _.Writer()

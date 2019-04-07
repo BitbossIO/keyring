@@ -1,6 +1,8 @@
 const _ = require('@keyring/util');
 _.ecc = require('ecc-tools');
 
+const Opcode = require('./opcode');
+
 const Templates = [
   {
     id: 'p2pkh',
@@ -27,6 +29,15 @@ const Templates = [
       } else if (identifier === 'spkg') {
         return { type: 'mc-issuance-quantity', id: identifier, quantity: data.uint64le() };
       } else { return {type: 'raw', data: data.buf}; }
+    }
+  },
+  {
+    id: 'data',
+    fingerprint: 'OP_RETURN <data>',
+    data(script) { return script.opcodes[1].data; },
+    init(data) {
+      data = Opcode._fromData(data);
+      return Buffer.concat(Opcode.Identifiers['OP_Return'], data);
     }
   },
   {

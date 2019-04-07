@@ -40,6 +40,9 @@ class Script {
   get _meta() { return this.template.meta; }
   get meta() { return _.r.is(Function, this._meta) ? this._meta(this) : {}; }
 
+  get _data() { return this.template.data; }
+  get data() { return _.r.is(Function, this._data) ? this._data(this) : false; }
+
   get _destination() { return this.template.destination; }
   get destination() { return _.r.is(Function, this._destination) ? this._destination(this) : []; }
 

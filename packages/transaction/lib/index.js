@@ -80,6 +80,21 @@ class Transaction {
 
   get suggestedFee() { return this._feePerByte.mul(this.size); }
 
+  data(data) {
+    if(_.r.isNil(data)) {
+      return _.r.pluck('data', this.outputs);
+    } else {
+      let script = new (this._outputClass.Script)('data', data);
+      this.outputs.push(new Output({
+        script,
+        amount: 0,
+        tx: this,
+        index: this.outputs.length
+      }));
+      return this;
+    }
+  }
+
   fee(amount) {
     if (_.r.isNil(amount)) {
       return this._fee || this.unspent;
@@ -92,13 +107,14 @@ class Transaction {
   to(hash, amount) {
     let script = new (this._outputClass.Script)('p2pkh', hash);
     this.outputs.push(new Output({
-      amount,
       script,
+      amount,
       tx: this,
       index: this.outputs.length
     }));
     return this;
   }
+
 
   from(utxo, sequence) {
     let input = new (this._inputClass)({
