@@ -37,7 +37,7 @@ const Templates = [
     data(script) { return script.opcodes[1].data; },
     init(data) {
       data = Opcode._fromData(data);
-      return Buffer.concat(Opcode.Identifiers['OP_Return'], data);
+      return Buffer.concat([Opcode.Identifiers['OP_RETURN'], data]);
     }
   },
   {

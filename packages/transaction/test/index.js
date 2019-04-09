@@ -115,6 +115,16 @@ describe('Transaction', () => {
     });
   });
 
+  describe('data', () => {
+    it('should add data output', () => {
+      let tx = new Transaction();
+      let txin = new Transaction(txhex);
+      tx.from(txin.outputs[1]);
+      tx.data(Buffer.from('deadbeef', 'hex'));
+      expect(tx.data()[0].toString('hex')).to.equal('deadbeef');
+    });
+  });
+
   describe('sign', () => {
     it('should sign all possible inputs', () => {
       let txin = new Transaction().to(hash, 1000).to(hash, 100);
