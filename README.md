@@ -7,7 +7,8 @@ Keyring is a library for creating and signing bitcoin transactions.  It currentl
 npm install keyring —save
 ```
 
-### Reference the Transaction package of the Keyring library at the top of your code:
+### Reference the Transaction package
+Add a require reference at the top of your code
 ```
 let Transaction = require('keyring/transaction');
 ```
@@ -35,9 +36,9 @@ let output = new tx._outputClass(
 tx = tx.from(output);
 ```
 
-### Set the “to” address (base 58 decoded)
+### Set the “to” address
+The address value should be base 58 decoded [TODO - Josh]
 Also include the amount of crypto being sent to that address
-
 ```
 tx.to(address, satoshis);
 ```
