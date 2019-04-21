@@ -93,6 +93,30 @@ describe('Transaction', () => {
       expect(tx.inputs[0].script.hex).to.equal('');
       expect(tx.inputs[0].amount.toNumber()).to.equal(21786156117);
     });
+
+    it('should take an array', () => {
+      let tx = new Transaction();
+      let txin = new Transaction(txhex);
+      tx.from([txin.outputs[1]]);
+      expect(tx.inputs.length).to.eql(1);
+      expect(tx.inputs[0].script.hex).to.equal('');
+      expect(tx.inputs[0].amount.toNumber()).to.equal(21786156117);
+    });
+
+    it('should take an object', () => {
+      let tx = new Transaction();
+      let txin = new Transaction(txhex);
+      tx.from({
+        txid: txin.id,
+        index: 0,
+        asm: 'OP_DUP OP_HASH160 3ff6616dd58714da04c30447bf04248a2b0e8a9e OP_EQUALVERIFY OP_CHECKSIG',
+        amount: 100
+      });
+      expect(tx.inputs.length).to.eql(1);
+      expect(tx.inputs[0].script.hex).to.equal('');
+      expect(tx.inputs[0].subscript.hex).to.equal('76a9143ff6616dd58714da04c30447bf04248a2b0e8a9e88ac');
+      expect(tx.inputs[0].amount.toNumber()).to.equal(100);
+    });
   });
 
   describe('fee', () => {

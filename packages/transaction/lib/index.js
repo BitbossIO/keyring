@@ -115,8 +115,12 @@ class Transaction {
     return this;
   }
 
-
   from(utxo, sequence) {
+    if(_.r.is(Array, utxo)) {
+      _.r.map((output) => { this.from(output); }, utxo);
+      return this;
+    }
+    if(!_.r.is(Output, utxo)) { utxo = new (this._outputClass)(utxo); }
     let input = new (this._inputClass)({
       txid: utxo.txid,
       index: utxo.index,
@@ -133,7 +137,7 @@ class Transaction {
     }
 
     let output = this.outputs[this._changeIndex];
-    output.script = new(this._outputClass.Script)('p2pkh', hash);
+    output.script = new (this._outputClass.Script)('p2pkh', hash);
     output.amount = this.unspent.sub(this.suggestedFee);
 
     return this;

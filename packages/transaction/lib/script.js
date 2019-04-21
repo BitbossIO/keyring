@@ -20,7 +20,6 @@ class Script {
     this._pos = 0;
     this.stack = [];
 
-    // console.log('args >>', args);
     if (raw === 'asm') { this.opcodes = Opcode.fromASM.apply(this, args); }
     else { this.opcodes = Opcode.fromRaw(raw); }
 
