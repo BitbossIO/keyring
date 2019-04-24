@@ -20,7 +20,7 @@ You can create a new transaction object by passing in the (string) hex represent
 let txin = new Transaction(hexData);
 ```
 
-Another option is to instantiate an Output object with its relevant data and the pass it into the Transaction.from() method.  You can also pass an array of outputs into the Transaction.from method (TODO - Josh).  The amount is specified in satoshi.
+Another option is to instantiate an Output object with its relevant data and the pass it into the Transaction.from() method.  You can also pass an array of outputs into the Transaction.from method.  The amount is specified in satoshi.
 ```
 let tx = new Transaction();
 
@@ -37,7 +37,7 @@ tx = tx.from(output);
 ```
 
 ### Set the “to” address
-The address value should be base 58 decoded [TODO - Josh]
+The address value should be in the standard address format, passed in as a string.
 Also include the amount of crypto being sent to that address
 ```
 tx.to(address, satoshis);
@@ -51,7 +51,7 @@ tx.fee(0);
 ```
 
 ### Specify the change address 
-The value should be base 58 decoded [TODO - Josh]
+The address value should be in the standard address format, passed in as a string.
 ```
 tx.change(address);
 ```
