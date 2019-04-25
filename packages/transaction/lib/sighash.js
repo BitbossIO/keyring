@@ -125,6 +125,14 @@ Sighash.NONE = 0x02;
 Sighash.SINGLE = 0x03;
 Sighash.FORKID = 0x40;
 Sighash.ANYONECANPAY = 0x80;
+
+Sighash.ALLFORKID = Sighash.All | Sighash.FORKID;
+Sighash.NONEFORKID = Sighash.NONE | Sighash.FORKID;
+Sighash.SINGLEFORKID = Sighash.SINGLE | Sighash.FORKID;
+Sighash.ANYONECANPAYFORKID = Sighash.ANYONECANPAY | Sighash.FORKID;
+
+Sighash.DEFAULT = Sighash.ALLFORKID;
+
 Sighash.SINGLEBUG = Buffer.from('0000000000000000000000000000000000000000000000000000000000000001', 'hex');
 
 module.exports = Sighash;

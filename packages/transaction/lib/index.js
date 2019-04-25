@@ -143,14 +143,14 @@ class Transaction {
     return this;
   }
 
-  sign(key, type=0x01) {
+  sign(key, type=Sighash.ALL, forkid=true) {
     if (_.r.is(String, key)) { key = Buffer.from(key, 'hex'); }
     let pub = _.ecc.publicKey(key, true);
     let hash = _.ecc.sha256ripemd160(pub).toString('hex');
 
     _.r.addIndex(_.r.forEach)((input, index) => {
       if (input.complete && input.source[0].toString('hex') === hash) {
-        let sighash = this.sighash(index, type);
+        let sighash = this.sighash(index, type, forkid);
         input.script = new (this._inputClass.Script)('signature', key, sighash, type);
       }
       return false;
@@ -159,7 +159,8 @@ class Transaction {
     return this;
   }
 
-  sighash(index, type=0x01) {
+  sighash(index, type=Sighash.ALL, forkid=true) {
+    if (forkid) { type = type | Sighash.FORKID; }
     let input = this.inputs[index];
     let subscript = input.subscript;
     let amount = input.amount;
@@ -205,5 +206,6 @@ class Transaction {
 }
 
 Transaction.chain = false;
+Transaction.Sighash = Sighash;
 
 module.exports = Transaction;
