@@ -12,7 +12,7 @@ class Transaction {
   get _class() { return Transaction; }
   get _inputClass() { return Input; }
   get _outputClass() { return Output; }
-  get _feePerByte() { return new (_.bn)(100); }
+  get _defaultFeePerByte() { return new (_.bn)(1); }
 
   constructor(raw={}) {
     if (_.r.is(Transaction, raw)) { return raw; }
@@ -38,6 +38,9 @@ class Transaction {
 
     return this;
   }
+
+  get feePerByte() { return this._feePerByte || this._defaultFeePerByte; }
+  set feePerByte(fee) { this._feePerByte = new (_.bn)(fee); }
 
   get buf() {
     return new _.Writer()
@@ -78,7 +81,7 @@ class Transaction {
 
   get unspent() { return this.inputAmount.sub(this.outputAmount); }
 
-  get suggestedFee() { return this._feePerByte.mul(this.size); }
+  get suggestedFee() { return this.feePerByte.mul(this.size); }
 
   data(data) {
     if(_.r.isNil(data)) {
@@ -138,7 +141,7 @@ class Transaction {
 
     let output = this.outputs[this._changeIndex];
     output.script = new (this._outputClass.Script)('p2pkh', hash);
-    output.amount = this.unspent.sub(this.suggestedFee);
+    output.amount = this.unspent.sub(this._fee || this.suggestedFee);
 
     return this;
   }
@@ -161,9 +164,11 @@ class Transaction {
 
   sighash(index, type=Sighash.ALL, forkid=true) {
     if (forkid) { type = type | Sighash.FORKID; }
+
     let input = this.inputs[index];
     let subscript = input.subscript;
     let amount = input.amount;
+
     return this._sighash.hash(index, subscript, amount, type);
   }
 

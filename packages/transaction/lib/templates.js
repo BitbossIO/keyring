@@ -54,7 +54,6 @@ const Templates = [
       let _type = Buffer.alloc(1);
       _type.writeUInt8(type, 0);
 
-      console.log('type  >>>', _type, type);
       let pub = _.ecc.publicKey(key, true);
       let signature = Buffer.concat([_.ecc.sign(sighash, key), _type]);
       return signature.length.toString(16) + signature.toString('hex') + '21' + pub.toString('hex');
