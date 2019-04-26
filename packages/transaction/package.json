@@ -1,6 +1,6 @@
 {
   "name": "@keyring/transaction",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Keyring transaction package",
   "main": "lib/index.js",
   "repository": "git@github.com:BitbossIO/keyring.git",
@@ -16,7 +16,7 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "@keyring/util": "^0.0.7",
+    "@keyring/util": "^0.0.8",
     "ecc-tools": "^1.0.14"
   }
 }
