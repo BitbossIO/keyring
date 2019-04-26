@@ -81,7 +81,10 @@ class Transaction {
 
   get unspent() { return this.inputAmount.sub(this.outputAmount); }
 
-  get suggestedFee() { return this.feePerByte.mul(this.size); }
+  get suggestedFee() {
+    let size = this.size.add(new (_.bn)(this.inputs.length * 100));
+    return this.feePerByte.mul(size);
+  }
 
   data(data) {
     if(_.r.isNil(data)) {
