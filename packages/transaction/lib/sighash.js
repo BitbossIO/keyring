@@ -40,6 +40,10 @@ class Sighash {
     let sequence = Buffer.alloc(32);
     let outputs = Buffer.alloc(32);
 
+    let forkValue = type >> 8;
+    let newForkValue = 0xff0000 | (forkValue ^ 0xdead);
+    type = (newForkValue << 8) | (type & 0xff);
+
     if (!(type & Sighash.ANYONECANPAY)) { prevouts = this.prevouts; }
 
     if (
