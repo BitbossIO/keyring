@@ -40,10 +40,6 @@ class Sighash {
     let sequence = Buffer.alloc(32);
     let outputs = Buffer.alloc(32);
 
-    let forkValue = type >> 8;
-    let newForkValue = 0xff0000 | (forkValue ^ 0xdead);
-    type = (newForkValue << 8) | (type & 0xff);
-
     if (!(type & Sighash.ANYONECANPAY)) { prevouts = this.prevouts; }
 
     if (
@@ -78,7 +74,7 @@ class Sighash {
   }
 
   bip143(index, subscript, amount, type) {
-    return _.buf.reverse(_.hash.sha256sha256(this._bip143(index, subscript, amount, type)));
+    return _.hash.sha256sha256(this._bip143(index, subscript, amount, type));
   }
 
   _original(index, subscript, amount, type) {
@@ -113,9 +109,7 @@ class Sighash {
   }
 
   original(index, subscript, amount, type) {
-    return _.buf.reverse(
-      _.hash.sha256sha256(this._original(index, subscript, amount, type))
-    );
+    return _.hash.sha256sha256(this._original(index, subscript, amount, type));
   }
 
   hash(index, subscript, amount, type) {

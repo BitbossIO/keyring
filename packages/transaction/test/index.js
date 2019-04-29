@@ -155,10 +155,10 @@ describe('Transaction', () => {
       let tx = new Transaction().from(txin.outputs[0]);
       let sighash = tx.sighash(0, 0x01, false);
       let signature = _.ecc.sign((sighash), private_key);
-      let scriptsig = '48' + signature.toString('hex') + '0121' + public_key.toString('hex');
+      let scriptsig = '47' + signature.toString('hex') + '0121' + public_key.toString('hex');
       let result = tx.sign(private_key, 0x01, false).buf;
 
-      expect(result.toString('hex')).to.eql('0100000001'+txin.hash.toString('hex')+'000000006b'+scriptsig+'ffffffff0000000000');
+      expect(result.toString('hex')).to.eql('0100000001'+txin.hash.toString('hex')+'000000006a'+scriptsig+'ffffffff0000000000');
     });
   });
 });

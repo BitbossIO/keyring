@@ -50,7 +50,7 @@ describe('Sighash', () => {
   //     it(`should calculate the sighash for vector ${i}`, () => {
   //       let hash = sighash.hash(vector[2], vector[1], 0, (vector[3] >>> 0));
   //       let unhash = sighash._original(vector[2], vector[1], 0, (vector[3] >>> 0));
-  //       expect(hash.toString('hex')).to.equal(vector[4]);
+  //       expect(_.buf.reverse(hash).toString('hex')).to.equal(vector[4]);
   //     });
   //   }, SighashVectors);
   // });
