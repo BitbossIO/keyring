@@ -5,7 +5,7 @@ KeyRing is a javascript library for creating and signing bitcoin transactions, a
 ### To add Keyring BSV to your javascript project:
 npm
 ```
-npm install @keyring/bsv —save
+npm install @keyring/bsv --save
 ```
 
 yarn
