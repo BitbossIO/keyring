@@ -1,6 +1,6 @@
 # Keyring javascript library
 
-Keyring is a library for creating and signing bitcoin transactions.  It currently supports Bitcoin SV including the larger OP_RETURN size.  Keyring has been designed to easily support other blockchains, and we’ll be updating it with multichain support soon.
+KeyRing is a javascript library for creating and signing bitcoin transactions, allowing you to easily build wallets for the Bitcoin SV blockchain. The library includes support for the larger OP_RETURN size.  With KeyRing it is very easy to add new op returns and script templates because of how the library is designed to work with multiple chains.
 
 ### To add Keyring to your javascript project:
 ```
