@@ -1,75 +1,17 @@
-# Keyring javascript library
+# Keyring
 
-KeyRing is a javascript library for creating and signing bitcoin transactions, allowing you to easily build wallets for the Bitcoin SV blockchain. The library includes support for the larger OP_RETURN size.  With KeyRing it is very easy to add new op returns and script templates because of how the library is designed to work with multiple chains.
+***Warning*** - This library is new and changing rapidly.
 
-### To add Keyring to your javascript project:
-```
-npm install keyring —save
-```
+Keyring is a collection of javascript libraries for working with Bitcoin(BSV) transactions and wallets.
 
-### Reference the Transaction package
-Add a require reference at the top of your code.
-```
-let Transaction = require('keyring/transaction');
-```
+## Libraries
 
+[BSV](https://github.com/BitbossIO/keyring/tree/master/packages/bsv) - The BSV library loads the most commonly needed modules to get you started working with the BSV chain.
 
-### Instantiate a new Transaction object
-You can create a new transaction object by passing in the (string) hex representation of an existing blockchain transaction.
-```
-let txin = new Transaction(hexData);
-```
+[Transaction](https://github.com/BitbossIO/keyring/tree/master/packages/transaction) - The Transaction library handles transaction parsing, creation, signing, and more.
 
-Another option is to pass in an Output object into the Transaction.from() method.  You can also pass an array of outputs into the Transaction.from method.  The amount is specified in satoshi.
-```
-let tx = new Transaction().from(
-      {
-        txid: '729b4706357b70c6aae58cd556e895d9441a7741aeb9436419ecaf18e764ea41',
-        index: 2,
-        asm: 'OP_DUP OP_HASH160 108748bafaa372bcaa21b1858eccc78b54fcd371 OP_EQUALVERIFY OP_CHECKSIG',
-        amount: 1638569
-      }
-);
-```
+[Util](https://github.com/BitbossIO/keyring/tree/master/packages/util) - The Util package contains helpers shared by the other libraries.
 
-### Set the “to” address
-The address value should be in the standard address format, passed in as a string.  Also include the amount of crypto being sent to that address.
-```
-tx.to(address, satoshis);
-```
+## Contributing
 
-
-### Set the fee
-Use 0 if you want the library to auto calculate the proper fee.
-```
-tx.fee(0);
-```
-
-### Specify the change address 
-The address value should be in the standard address format, passed in as a string.
-```
-tx.change(address);
-```
-
-### Set OP_RETURN data
-Set data into an OP_RETURN as a node.js Buffer value.
-```
-tx.data(Buffer.from(myDataAsString));
-```
-
-Note that you can also chain together Transaction method calls, for example:
-```
-tx.to(address, satoshis);
-tx.fee(0);
-tx.change(address);
-tx.data(Buffer.from(myDataAsString));
-```
-
-
-### Sign and Serialize the Transaction
-Sign with the private key as a node.js Buffer value, and then serialize the transaction.  You can then broadcast it using a SPV server’s API.
-```
-tx.sign(privKey);
-const serializedTx = tx.buf.toString('hex');
-// send serializedTx...
-```
+All contributions of code, feedback, and feature requests are welcome. We will be using github issues to track work and will monitor it closely. Right now keyring is bare bones, but we have a nice base to build the dev tools bitcoin needs.
