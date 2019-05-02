@@ -110,7 +110,8 @@ class Transaction {
     }
   }
 
-  to(hash, amount) {
+  to(addr, amount) {
+    let { hash } = _.addr.from(addr);
     let script = new (this._outputClass.Script)('p2pkh', hash);
     this.outputs.push(new Output({
       script,
@@ -136,7 +137,8 @@ class Transaction {
     return this;
   }
 
-  change(hash) {
+  change(addr) {
+    let { hash } = _.addr.from(addr);
     if(_.r.isNil(this._changeIndex)) {
       this._changeIndex = this.outputs.length;
       this.outputs.push(new (this._outputClass)());
@@ -153,13 +155,11 @@ class Transaction {
     if (_.r.is(String, key)) { key = Buffer.from(key, 'hex'); }
     if (useForkid) { type = type | Sighash.FORKID; }
 
-    let pub = _.ecc.publicKey(key, true);
-    let hash = _.ecc.sha256ripemd160(pub).toString('hex');
-
     _.r.addIndex(_.r.forEach)((input, index) => {
-      if (input.complete && input.source[0].toString('hex') === hash) {
+      let {signable, compressed} = input.signableBy(key);
+      if (signable) {
         let sighash = this.sighash(index, type, useForkid);
-        input.script = new (this._inputClass.Script)('signature', key, sighash, type);
+        input.script = new (this._inputClass.Script)('signature', key, sighash, type, compressed);
       }
       return false;
     }, this.inputs);

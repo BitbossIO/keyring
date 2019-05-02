@@ -44,6 +44,33 @@ class Input {
 
   blank() { this.script = new this._scriptClass(); }
 
+  signableBy(key) {
+    let complete = this.complete;
+    let source =this.source[0].toString('hex');
+
+    let compressedHash = _.ecc.sha256ripemd160(_.ecc.publicKey(key, true)).toString('hex');
+    let uncompressedHash = _.ecc.sha256ripemd160(_.ecc.publicKey(key, false)).toString('hex');
+
+    let signable = false;
+    let compressed = null;
+
+    if (complete && source === compressedHash) {
+      signable = true;
+      compressed = true;
+    } else if (complete && source === uncompressedHash) {
+      signable = true;
+      compressed = false;
+    }
+
+    return {
+      source,
+      signable,
+      complete,
+      compressed
+    };
+
+  }
+
   static template() {
     return [
       ['txid', 'reverse:32'],

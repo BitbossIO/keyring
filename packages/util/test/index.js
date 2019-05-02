@@ -9,6 +9,8 @@ describe('Reader', () => {
       'r',
       'bn',
       'buf',
+      'addr',
+      'format',
       'Writer',
       'Reader',
       'Parser'

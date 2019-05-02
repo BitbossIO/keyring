@@ -48,15 +48,21 @@ const Templates = [
   {
     id: 'signature',
     fingerprint: '<data> <data>',
-    init(key, sighash, type) {
+    init(key, sighash, type, compressed=true) {
       key = _.r.is(String, key) ? Buffer.from(key, 'hex') : key;
 
       let _type = Buffer.alloc(1);
       _type.writeUInt8(type, 0);
 
-      let pub = _.ecc.publicKey(key, true);
+      let pub = _.ecc.publicKey(key, compressed);
       let signature = Buffer.concat([_.ecc.sign(sighash, key), _type]);
-      return signature.length.toString(16) + signature.toString('hex') + '21' + pub.toString('hex');
+
+      return (
+        signature.length.toString(16) +
+        signature.toString('hex') +
+        pub.length.toString(16) +
+        pub.toString('hex')
+      );
     }
   }
 ];

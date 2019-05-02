@@ -1,12 +1,18 @@
 const R = require('ramda');
+const bs58 = require('bs58check');
+const Format = require('./format');
  
 const Buf = {
   from(buf) {
     if(typeof buf == 'object' && !R.isNil(buf.buf)) { buf = buf.buf; }
     if(typeof buf == 'function') { buf = buf(); }
 
-    if(R.is(String, buf)) { buf = Buffer.from(buf, 'hex'); }
-    else if(R.is(Array, buf)) { buf = Buffer.concat(R.map(this.from, buf)); }
+    let type = Format.detect(buf);
+
+    if(type === 'hex') { buf = Buffer.from(buf, 'hex'); }
+    else if(type === 'bs58') { buf = bs58.decode(buf); }
+    else if(type === 'null') { buf = Buffer.alloc(0); }
+    else if(type === 'array') { buf = Buffer.concat(R.map(this.from, buf)); }
     else if(!R.is(Buffer, buf)) { throw new TypeError('invalid buffer'); }
     return buf;
   },

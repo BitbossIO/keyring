@@ -13,7 +13,7 @@ const txhex = '01000000022ac3f773c664720bae094aa7d8556f1e07de84f1ff018d9a5e103aa
 const txhash = 'bd31363bcc28b4d11539f30a2a074bf303d018b5a49e80bc03208fb3b4c7bc82';
 const txid = '82bcc7b4b38f2003bc809ea4b518d003f34b072a0af33915d1b428cc3b3631bd';
 const txin = '1ef86d3dae3a105e9a8d01fff184de071e6f55d8a74a09ae0b7264c673f7c32a';
-const addr = 'd02fd16d61fa29d0ff1aef12c980545887ef368a';
+const addr = '1KynqMpA5e5h3uy69fayPQkVVm9toePm4y';
 const key = _.ecc.privateKey();
 
 const private_key = _.ecc.sha256('hello world');
@@ -80,7 +80,7 @@ describe('Transaction', () => {
       let tx = new Transaction();
       tx.to(addr, 10);
       expect(tx.outputs.length).to.eql(1);
-      expect(tx.outputs[0].script.hex).to.equal('76a914' + addr + '88ac');
+      expect(tx.outputs[0].script.hex).to.equal('76a914' + _.addr.from(addr).hash.toString('hex') + '88ac');
     });
   });
 
@@ -151,7 +151,8 @@ describe('Transaction', () => {
 
   describe('sign', () => {
     it('should sign all possible inputs', () => {
-      let txin = new Transaction().to(hash, 1000).to(hash, 100);
+      let inAddr = _.addr.format(hash);
+      let txin = new Transaction().to(inAddr, 1000).to(inAddr, 100);
       let tx = new Transaction().from(txin.outputs[0]);
       let sighash = tx.sighash(0, 0x01, false);
       let signature = _.ecc.sign((sighash), private_key);
