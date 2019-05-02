@@ -1,0 +1,29 @@
+{
+  "name": "@keyring/bsv",
+  "version": "0.0.11",
+  "description": "Library for working with BSV",
+  "author": "Josh Robinson <hexorx@gmail.com>",
+  "homepage": "https://github.com/BitbossIO/keyring#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BitbossIO/keyring.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/BitbossIO/keyring/issues"
+  }
+}
