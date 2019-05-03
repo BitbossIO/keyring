@@ -1,6 +1,6 @@
 {
   "name": "@keyring/bsv",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Library for working with BSV",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
@@ -27,6 +27,6 @@
     "url": "https://github.com/BitbossIO/keyring/issues"
   },
   "dependencies": {
-    "@keyring/transaction": "^0.0.13"
+    "@keyring/transaction": "^0.0.14"
   }
 }
