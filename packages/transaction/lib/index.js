@@ -12,7 +12,7 @@ class Transaction {
   get _class() { return Transaction; }
   get _inputClass() { return Input; }
   get _outputClass() { return Output; }
-  get _defaultFeePerByte() { return new (_.bn)(1); }
+  get _defaultFeePerKB() { return new (_.bn)(1024); }
 
   constructor(raw={}) {
     if (_.r.is(Transaction, raw)) { return raw; }
@@ -39,8 +39,8 @@ class Transaction {
     return this;
   }
 
-  get feePerByte() { return this._feePerByte || this._defaultFeePerByte; }
-  set feePerByte(fee) { this._feePerByte = new (_.bn)(fee); }
+  get feePerKB() { return this._feePerKB || this._defaultFeePerKB; }
+  set feePerKB(fee) { this._feePerKB = new (_.bn)(fee); }
 
   get buf() {
     return new _.Writer()
@@ -82,8 +82,14 @@ class Transaction {
   get unspent() { return this.inputAmount.sub(this.outputAmount); }
 
   get suggestedFee() {
-    let size = this.size.add(new (_.bn)(this.inputs.length * 142));
-    return this.feePerByte.mul(size);
+    let bytes = this.size.add(new (_.bn)(this.inputs.length * 142));
+    let kb = bytes.div(new (_.bn)(1024));
+
+    if(!bytes.mod(new (_.bn)(1024)).isZero()) {
+      kb.add(new (_.bn)(1));
+    }
+
+    return this.feePerKB.mul(kb);
   }
 
   data(data) {
