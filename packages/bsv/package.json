@@ -25,5 +25,8 @@
   },
   "bugs": {
     "url": "https://github.com/BitbossIO/keyring/issues"
+  },
+  "dependencies": {
+    "@keyring/transaction": "^0.0.13"
   }
 }
