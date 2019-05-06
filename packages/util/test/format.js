@@ -46,7 +46,7 @@ describe('format', () => {
 
     it('should return empty for empty string', () => {
       let result = Format.detect('');
-      expect(result).to.equal('empty');
+      expect(result).to.equal('null');
     });
 
     it('should return bs58 for bs58', () => {

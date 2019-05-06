@@ -12,7 +12,7 @@ class Transaction {
   get _class() { return Transaction; }
   get _inputClass() { return Input; }
   get _outputClass() { return Output; }
-  get _defaultFeePerKB() { return new (_.bn)(1024); }
+  get _defaultFeePerKB() { return _.bn.from(1024); }
 
   constructor(raw={}) {
     if (_.r.is(Transaction, raw)) { return raw; }
@@ -40,7 +40,7 @@ class Transaction {
   }
 
   get feePerKB() { return this._feePerKB || this._defaultFeePerKB; }
-  set feePerKB(fee) { this._feePerKB = new (_.bn)(fee); }
+  set feePerKB(fee) { this._feePerKB = _.bn.from(fee); }
 
   get buf() {
     return new _.Writer()
@@ -55,20 +55,20 @@ class Transaction {
   get hash() { return _.hash.sha256sha256(this.buf); }
   get id() { return _.buf.reverse(this.hash); }
   get txin() { return _.r.pluck('txid', this.inputs); }
-  get size() { return new (_.bn)(this.buf.length); }
+  get size() { return _.bn.from(this.buf.length); }
 
   get clone() { return new (this._class)(Object.assign({}, this.raw)); }
 
   get inputAmount() {
     return _.r.reduce((total, amount) => {
       return total.add(amount);
-    }, new (_.bn)(0), _.r.pluck('amount', this.inputs));
+    }, _.bn.Zero, _.r.pluck('amount', this.inputs));
   }
 
   get outputAmount() {
     return _.r.reduce((total, amount) => {
       return total.add(amount);
-    }, new (_.bn)(0), _.r.pluck('amount', this.outputs));
+    }, _.bn.Zero, _.r.pluck('amount', this.outputs));
   }
 
   get changeAmount() {
@@ -82,14 +82,8 @@ class Transaction {
   get unspent() { return this.inputAmount.sub(this.outputAmount); }
 
   get suggestedFee() {
-    let bytes = this.size.add(new (_.bn)(this.inputs.length * 142));
-    let kb = bytes.div(new (_.bn)(1024));
-
-    if(!bytes.mod(new (_.bn)(1024)).isZero()) {
-      kb.add(new (_.bn)(1));
-    }
-
-    return this.feePerKB.mul(kb);
+    let bytes = this.size.add(_.bn.from(this.inputs.length * 142));
+    return bytes.mul(this.feePerKB).div(_.bn.KB).add(_.bn.Byte);
   }
 
   data(data) {
@@ -111,7 +105,7 @@ class Transaction {
     if (_.r.isNil(amount)) {
       return this._fee || this.unspent;
     } else {
-      this._fee = new (_.bn)(amount);
+      this._fee = _.bn.from(amount);
       return this;
     }
   }

@@ -1,6 +1,6 @@
 const Util = {
   r: require('ramda'),
-  bn: require('bn.js'),
+  bn: require('./bn'),
   buf: require('./buf'),
   addr: require('./addr'),
   format: require('./format'),
