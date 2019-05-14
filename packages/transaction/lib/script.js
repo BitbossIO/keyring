@@ -42,6 +42,9 @@ class Script {
   get _data() { return this.template.data; }
   get data() { return _.r.is(Function, this._data) ? this._data(this) : false; }
 
+  get _source() { return this.template.source; }
+  get source() { return _.r.is(Function, this._source) ? this._source(this) : []; }
+
   get _destination() { return this.template.destination; }
   get destination() { return _.r.is(Function, this._destination) ? this._destination(this) : []; }
 

@@ -9,11 +9,10 @@ const Addr = {
     return {version, hash};
   },
   format(hash, version=0x00) {
-    let _version = version;
-    version = Buffer.alloc(1);
-    version.writeUInt8(version);
+    let _version = Buffer.alloc(1);
+    _version.writeUInt8(version);
 
-    return bs58.encode(Buffer.concat([version, Buf.from(hash)]));
+    return bs58.encode(Buffer.concat([_version, Buf.from(hash)]));
   }
 
 };

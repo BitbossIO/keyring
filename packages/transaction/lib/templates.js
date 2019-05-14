@@ -48,6 +48,9 @@ const Templates = [
   {
     id: 'signature',
     fingerprint: '<data> <data>',
+    source(script) {
+      return [_.ecc.sha256ripemd160(script.opcodes[1].data)];
+    },
     init(key, sighash, type, compressed=true) {
       key = _.r.is(String, key) ? Buffer.from(key, 'hex') : key;
 

@@ -40,7 +40,13 @@ class Input {
 
   get hex() { return this.buf.toString('hex'); }
 
-  get source() { return _.r.isNil(this.subscript) ? [] : this.subscript.destination; }
+  get source() {
+    if (_.r.isNil(this.subscript)) {
+      return this.script.source;
+    } else {
+      return this.subscript.destination;
+    }
+  }
 
   blank() { this.script = new this._scriptClass(); }
 

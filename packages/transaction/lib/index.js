@@ -7,14 +7,22 @@ const Output = require('./output');
 const Script = require('./script');
 const Sighash = require('./sighash');
 
-class Transaction {
+const Plugin = require('@keyring/Plugin');
+
+class Transaction extends Plugin.Host {
   get _chain() { return false; }
   get _class() { return Transaction; }
   get _inputClass() { return Input; }
   get _outputClass() { return Output; }
   get _defaultFeePerKB() { return _.bn.from(1024); }
 
+  static use(provider, refresh) {
+    this._use(provider, 'transaction', refresh);
+  }
+
   constructor(raw={}) {
+    super('transaction');
+
     if (_.r.is(Transaction, raw)) { return raw; }
     if (_.r.is(Buffer, raw) || typeof raw === 'string') {
       return new _.Parser(this._class).parse(raw);
