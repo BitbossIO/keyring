@@ -9,7 +9,7 @@ const BSV = require('@keyring/bsv');
 const TXOPlugin = require('@keyring/txo-plugin');
 
 const Transaction = BSV.Transaction;
-Transaction.use(new TXOPlugin(), true);
+Transaction.use(new TXOPlugin());
 
 let tx = new Transaction([raw hex format as a string]);
 let txo = tx.txo();
