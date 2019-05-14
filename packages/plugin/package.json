@@ -1,6 +1,6 @@
 {
   "name": "@keyring/plugin",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "> TODO: description",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
@@ -32,6 +32,6 @@
     "mocha": "^6.1.4"
   },
   "dependencies": {
-    "@keyring/util": "^0.0.16"
+    "@keyring/util": "^0.0.17"
   }
 }
