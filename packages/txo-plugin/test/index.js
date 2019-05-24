@@ -5,10 +5,6 @@ const Plugin = require('@keyring/plugin');
 const TXOPlugin = require('../lib');
 const Transaction = require('@keyring/transaction');
 
-class Host extends Plugin.Host {
-  static use(provider) { this._use(provider, 'transaction'); }
-}
-
 const vectors = require('./vectors.json');
 
 describe('@keyring/txo-plugin', () => {
