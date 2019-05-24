@@ -1,0 +1,40 @@
+{
+  "name": "@keyring/cbor-plugin",
+  "version": "0.0.17",
+  "description": "> TODO: description",
+  "author": "Josh Robinson <hexorx@gmail.com>",
+  "homepage": "https://github.com/BitbossIO/keyring#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BitbossIO/keyring.git"
+  },
+  "scripts": {
+    "test": "npx mocha",
+    "test:watch": "npx mocha --watch"
+  },
+  "bugs": {
+    "url": "https://github.com/BitbossIO/keyring/issues"
+  },
+  "dependencies": {
+    "@keyring/plugin": "^0.0.17",
+    "@keyring/util": "^0.0.17",
+    "borc": "^2.1.0"
+  },
+  "devDependencies": {
+    "@keyring/transaction": "^0.0.17",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
+  }
+}
