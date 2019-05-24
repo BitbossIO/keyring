@@ -1,7 +1,11 @@
 const Transaction = require('@keyring/transaction');
 
-const BSV = {
-  Transaction
+class BSV {
+  static get Transaction() { return Transaction; }
+
+  static use(provider, refresh) => {
+    Transaction.use(provider, refresh);
+  }
 };
 
 module.exports = BSV;
