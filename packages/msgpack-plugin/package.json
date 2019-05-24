@@ -1,6 +1,6 @@
 {
   "name": "@keyring/msgpack-plugin",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "> TODO: description",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
@@ -28,12 +28,12 @@
     "url": "https://github.com/BitbossIO/keyring/issues"
   },
   "dependencies": {
-    "@keyring/plugin": "^0.0.17",
-    "@keyring/util": "^0.0.17",
+    "@keyring/plugin": "^0.0.18",
+    "@keyring/util": "^0.0.18",
     "@msgpack/msgpack": "^1.1.0"
   },
   "devDependencies": {
-    "@keyring/transaction": "^0.0.17",
+    "@keyring/transaction": "^0.0.18",
     "chai": "^4.2.0",
     "mocha": "^6.1.4"
   }
