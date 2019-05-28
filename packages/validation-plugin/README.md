@@ -1,5 +1,8 @@
 # `@keyring/validation-plugin`
 
+This plugin allows a developer to easily verify a transaction before sending it off to a node.  When using this plugin a validate method is added to the Keyring Transaction class.  It checks a transaction for properly signed inputs, a valid unspent amount, and that the outputs total an amount that is higher than dust.  It also validates the transaction signature.  
+
+
 ## Usage
 
 ```
