@@ -1,6 +1,10 @@
 # `@keyring/validation-plugin`
 
-This plugin allows a developer to easily verify a transaction before sending it off to a node.  When using this plugin a validate method is added to the Keyring Transaction class.  It checks a transaction for properly signed inputs, a valid unspent amount, and that the outputs total an amount that is higher than dust.  It also validates the transaction signature.  
+This plugin allows a developer to easily verify a transaction before sending it off to a node.  When using this plugin a validate method is added to the Keyring Transaction class.  By default it checks for the following:
+* The transaction has inputs
+* The transaction inputs are signed
+* The transaction outputs are over the dust amount
+* The transaction has a fee
 
 
 ## Usage
@@ -9,8 +13,17 @@ This plugin allows a developer to easily verify a transaction before sending it 
 const BSV = require('@keyring/bsv');
 const validationPlugin = require('@keyring/validation-plugin');
 
+let options = {
+    transaction: {
+      hasInputs: true,
+      inputsAreSigned: true,
+      outputsAreOver: 500,
+      hasFee: true
+    }
+};
+
 const Transaction = BSV.Transaction;
-Transaction.use(new validationPlugin());
+Transaction.use(new validationPlugin(options));
 
 let tx = new Transaction().from(
     {
