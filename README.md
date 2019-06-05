@@ -14,12 +14,16 @@ Keyring is a collection of javascript libraries for working with Bitcoin(BSV) tr
 
 ## Plugins
 
-The Keyring library has several plugins and more will be added over time.  Plugins provide convenient access to extra functionality that you can access directly from your Transaction class instance.  Examples of current plugins include:
+The Keyring library has several plugins and more will be added over time.  Plugins provide convenient access to extra functionality that you can access directly from your Transaction class instance. Current plugins include:
 
-* validation-plugin: adds a validate method to the Transaction instance to verify if the transaction is valid before sending it to a blockchain node
-* cbor-plugin: adds a convenience method to insert CBOR encoded data into a transaction
-* msgpack-plugin: adds a convenience method to insert msgpack encoded data into a transaction
-* txo-plugin: adds TXO conversion capabilities to the Keyring Transaction class
+
+[Validation](https://github.com/BitbossIO/keyring/tree/master/packages/validation-plugin) - Adds a validate method to the Transaction instance to verify if the transaction is valid before sending it to a blockchain node.
+
+[CBOR](https://github.com/BitbossIO/keyring/tree/master/packages/cbor-plugin) - Adds a convenience method to insert CBOR encoded data into a transaction.
+
+[MsgPack](https://github.com/BitbossIO/keyring/tree/master/packages/msgpack-plugin) - Adds a convenience method to insert msgpack encoded data into a transaction.
+
+[TXO](https://github.com/BitbossIO/keyring/tree/master/packages/txo-plugin) - Adds TXO conversion capabilities to the Keyring Transaction class.
 
 All plugins are in the keyring/packages directory; each one ends in `-plugin`.  There is example usage code in each plugin readme file.  You simply require the plugin npm package separately and then register it using Transaction.use() before instantiating a new Transaction instance variable.
 
