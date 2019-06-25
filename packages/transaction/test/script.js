@@ -2,8 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const Script = require('../lib/script');
-
-const Chain = require('./mocks/chain');
+const Chain = require('@keyring/chain');
 const chain = new Chain();
 
 const p2pkh = '76a914c86a5e5deaeefc79ef444d40bb896f7c6253e8ab88ac';
@@ -38,8 +37,8 @@ describe('Script', () => {
 
   describe('#for', () => {
     it('should create a class with chain set', () => {
-      let script = new (Script.for(chain.templates('input')))('');
-      expect(script._templates).to.eql([]);
+      let script = new (Script.for(chain))('');
+      expect(script.chain).to.eql(chain);
     });
   });
 

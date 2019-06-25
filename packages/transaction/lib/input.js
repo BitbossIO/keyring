@@ -3,8 +3,8 @@ const _ = require('@keyring/util');
 const Script = require('./script');
 
 class Input {
-  get _chain() { return false; }
-  get _scriptClass() { return Script; }
+  get chain() { return this.constructor.chain; }
+  static get chain() { return { Script }; }
 
   constructor(raw={}, subscript, amount) {
     if (_.r.is(Input, raw)) { raw = raw.buf; }
@@ -16,12 +16,12 @@ class Input {
     this.raw.amount = amount;
     this.raw.subscript = subscript;
 
-    if (!_.r.isNil(subscript)) { this.subscript = new this._scriptClass(subscript); }
+    if (!_.r.isNil(subscript)) { this.subscript = new this.chain.Script(subscript); }
     if (!_.r.isNil(amount)) { this.amount = new _.bn(amount); }
 
     this.txid = this.raw.txid;
     this.index = this.raw.index;
-    this.script = new this._scriptClass(this.raw.script);
+    this.script = new this.chain.Script(this.raw.script);
 
     return this;
   }
@@ -48,7 +48,7 @@ class Input {
     }
   }
 
-  blank() { this.script = new this._scriptClass(); }
+  blank() { this.script = new this.chain.Script(); }
 
   signableBy(key) {
     let complete = this.complete;
@@ -87,21 +87,14 @@ class Input {
   }
 
   static for(chain) {
-    const ScriptClass = Script.for(chain.templates('input'));
+    chain.Script = chain.Script || Script.for(chain);
 
     class InputClass extends Input {
-      get _chain() { return chain; }
-      get _scriptClass() { return ScriptClass; }
+      static get chain() { return chain; }
     }
-
-    InputClass.chain = chain;
-    InputClass.Script = ScriptClass;
 
     return InputClass;
   }
 }
-
-Input.chain = false;
-Input.Script = Script;
 
 module.exports = Input;

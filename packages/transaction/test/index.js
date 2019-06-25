@@ -3,7 +3,7 @@ const expect = chai.expect;
 
 const Transaction = require('../lib');
 
-const Chain = require('./mocks/chain');
+const Chain = require('@keyring/chain');
 const chain = new Chain();
 
 const _ = require('@keyring/util');
@@ -41,7 +41,7 @@ describe('Transaction', () => {
   describe('#for', () => {
     it('should create a class with chain set', () => {
       let tx = new (Transaction.for(chain))(txhex);
-      expect(tx.inputs[0].script._templates).to.eql([]);
+      expect(tx.inputs[0].chain.Script).to.be.not.null;
     });
   });
 
@@ -145,7 +145,16 @@ describe('Transaction', () => {
       let txin = new Transaction(txhex);
       tx.from(txin.outputs[1]);
       tx.data(Buffer.from('deadbeef', 'hex'));
-      expect(tx.data()[0].toString('hex')).to.equal('deadbeef');
+      expect(tx.data()[0][0].toString('hex')).to.equal('deadbeef');
+    });
+
+    it('should add multiple data pushes to a single output', () => {
+      let tx = new Transaction();
+      let txin = new Transaction(txhex);
+      tx.from(txin.outputs[1]);
+      tx.data('hello', 'world');
+      expect(tx.data()[0][0].toString('utf8')).to.equal('hello');
+      expect(tx.data()[0][1].toString('utf8')).to.equal('world');
     });
   });
 

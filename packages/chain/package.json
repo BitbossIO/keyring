@@ -1,7 +1,7 @@
 {
-  "name": "@keyring/transaction",
+  "name": "@keyring/chain",
   "version": "0.0.19",
-  "description": "Keyring transaction package",
+  "description": "> TODO: description",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "lib"
   ],
   "publishConfig": {
-    "access": "public"
+    "registry": "https://registry.yarnpkg.com"
   },
   "repository": {
     "type": "git",
@@ -29,13 +29,10 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "chai-bignumber": "^3.0.0",
-    "mocha": "^5.2.0"
+    "mocha": "^6.1.4"
   },
   "dependencies": {
-    "@keyring/chain": "^0.0.19",
-    "@keyring/plugin": "^0.0.19",
     "@keyring/util": "^0.0.19",
-    "ecc-tools": "^1.0.14"
+    "ramda": "^0.26.1"
   }
 }

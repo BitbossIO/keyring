@@ -1,38 +1,36 @@
 const _ = require('@keyring/util');
+const Chain = require('@keyring/chain');
 
-const Opcode = require('./opcode');
-const Templates = require('./templates');
+const StandardChain = new Chain();
 
 class Script {
-  _templateIndex(prop) { return _.r.indexBy(_.r.prop(prop), this._templates); }
-  _templateLookup(prop, key) { return this._templateIndex(prop)[key] || {}; }
+  get chain() { return this.constructor.chain; }
+  static get chain() { return StandardChain; }
+
 
   constructor(raw='', ...args) {
     if(raw instanceof Script) { return raw; }
-    return this.set(raw, args);
+    return this.set(raw, ...args);
   }
 
-  set(raw, args) {
-    let temp = _.r.is(String, raw) ? this._templateLookup('id', raw) : false;
-    if (temp && _.r.is(Function, temp.init)) { raw = temp.init(...args); }
-
-    this.raw = raw;
+  set(raw, ...args) {
     this._pos = 0;
     this.stack = [];
+    this.raw = raw = this.chain.templates.init(raw, ...args);
 
-    if (raw === 'asm') { this.opcodes = Opcode.fromASM.apply(this, args); }
-    else { this.opcodes = Opcode.fromRaw(raw); }
+    if (raw === 'asm') { this.opcodes = this.chain.opcodes.fromASM(...args); }
+    else { this.opcodes = this.chain.opcodes.fromRaw(raw); }
 
     return this;
   }
-
-  get _templates() { return Templates; }
 
   get buf() { return Buffer.concat(_.r.pluck('buf', this.opcodes)); }
   get hex() { return this.buf.toString('hex'); }
   get asm() { return _.r.pluck('identifier', this.opcodes).join(' '); }
 
-  get template() { return this._templateLookup('fingerprint', this.fingerprint); }
+  get template() {
+    return this.chain.templates.find(this.opcodes);
+  }
 
   get fingerprint() { return _.r.pluck('label', this.opcodes).join(' '); }
 
@@ -48,9 +46,9 @@ class Script {
   get _destination() { return this.template.destination; }
   get destination() { return _.r.is(Function, this._destination) ? this._destination(this) : []; }
 
-  static for(templates) {
+  static for(chain) {
     class ScriptClass extends Script {
-      get _templates() { return templates; }
+      static get chain() { return chain; }
     }
 
     return ScriptClass;

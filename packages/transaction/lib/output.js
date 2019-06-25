@@ -3,14 +3,13 @@ const _ = require('@keyring/util');
 const Script = require('./script');
 
 class Output {
-  get _chain() { return false; }
-  get _class() { return Output; }
-  get _scriptClass() { return Script; }
+  get chain() { return this.constructor.chain; }
+  static get chain() { return { Script }; }
 
   constructor(raw='') {
     if (_.r.is(Output, raw)) { raw = raw.buf; }
     if (_.r.is(Buffer, raw) || typeof raw === 'string') {
-      return new _.Parser(this._class).parse(raw);
+      return new _.Parser(this.constructor).parse(raw);
     }
 
     this.raw = raw;
@@ -39,7 +38,7 @@ class Output {
   get hex() { return this.buf.toString('hex'); }
   get txid() { return this.raw.txid || this.tx.id; }
 
-  clone(output={}) { return new (this._class)(Object.assign(this.raw, output)); }
+  clone(output={}) { return new (this.constructor)(Object.assign(this.raw, output)); }
 
   blank() {
     this.amount = new (_.bn)('ffffffffffffffff', 16);
@@ -54,22 +53,14 @@ class Output {
   }
 
   static for(chain) {
-    const ScriptClass = Script.for(chain.templates('output'));
+    chain.Script = chain.Script || Script.for(chain);
 
     class OutputClass extends Output {
-      get _chain() { return chain; }
-      get _class() { return OutputClass; }
-      get _scriptClass() { return ScriptClass; }
+      static get chain() { return chain; }
     }
-
-    OutputClass.chain = chain;
-    OutputClass.Script = ScriptClass;
 
     return OutputClass;
   }
 }
-
-Output.chain = false;
-Output.Script = Script;
 
 module.exports = Output;

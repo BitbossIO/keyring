@@ -1,16 +1,14 @@
 const _ = require('@keyring/util');
 
-const Opcodes = require('./opcodes');
-
 class Opcode {
-  constructor(reader) {
-    if (_.r.is(String, reader)) { return new Opcode(new _.Reader(reader)); }
+  constructor(opcodes=[], reader) {
+    if (_.r.is(String, reader)) { return new Opcode(opcodes, new _.Reader(reader)); }
 
     this._reader = reader;
 
-    this.code = reader.read(1);
-    this.buf = this.code;
-    this.op = Opcodes[this.code[0]] || { identifier: 'UNKNOWN_OP' };
+    this.buf = reader.read(1);
+    this.code = this.buf[0];
+    this.op = opcodes[this.code] || { identifier: 'UNKNOWN_OP' };
     this.take = _.r.is(Function, this.op.take) ? this.op.take(this) : this.op.take;
 
     if (this.take) { this.data = reader.read(this.take); }
@@ -19,14 +17,21 @@ class Opcode {
     if(this.extra) { this.buf = Buffer.concat([this.buf, this.extra]); };
     if(this.data) { this.buf = Buffer.concat([this.buf, this.data]); }
 
-    this.identifier = (this.op.identifier || this.data || '0x' + this.code).toString('hex');
     this.group = this.op.group;
     this.label = this.group || this.identifier;
 
     return this;
   }
 
-  static _fromData(data) {
+  get identifier() {
+    return (
+      this.data ||
+      this.op.identifier ||
+      '0x' + this.code
+    ).toString('hex');
+  }
+
+  static fromData(opcodes, data) {
     data = _.buf.from(data);
 
     let buf;
@@ -47,39 +52,8 @@ class Opcode {
       buf.writeUInt32LE(data.length, 1);
     } else { throw new Error('data too big, how did you even do that?'); }
 
-    return Buffer.concat([buf, data]);
-  }
-
-  static fromASM(asm) {
-    return _.r.map((val) => {
-      let buf = Opcode.Identifiers[val];
-      if (_.r.isNil(buf)) { buf = Opcode._fromData(val); }
-      return new Opcode(new (_.Reader)(buf));
-    }, asm.split(' '));
-  }
-
-  static fromRaw(raw) {
-    let opcodes = [];
-    let reader = new _.Reader(raw);
-
-    while (!reader.eof) {
-      opcodes.push(new Opcode(reader));
-    }
-
-    return opcodes;
+    return new Opcode(opcodes, new _.Reader(Buffer.concat([buf, data])));
   }
 }
-
-Opcode.Identifiers = {};
-
-_.r.forEachObjIndexed((meta, code) => {
-  _.r.forEach((identifier) => {
-    let buf = Buffer.alloc(1);
-    buf.writeUInt8(code, 0);
-    Opcode.Identifiers[identifier] = buf;
-
-  }, meta.identifiers || [meta.identifier]);
-}, Opcodes);
-
 
 module.exports = Opcode;

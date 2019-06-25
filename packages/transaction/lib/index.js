@@ -10,10 +10,9 @@ const Sighash = require('./sighash');
 const Plugin = require('@keyring/Plugin');
 
 class Transaction extends Plugin.Host {
-  get _chain() { return false; }
-  get _class() { return Transaction; }
-  get _inputClass() { return Input; }
-  get _outputClass() { return Output; }
+  get chain() { return this.constructor.chain; }
+  static get chain() { return { Input, Output, Script }; }
+
   get _defaultFeePerKB() { return _.bn.from(1024); }
 
   static use(provider, refresh) {
@@ -25,7 +24,7 @@ class Transaction extends Plugin.Host {
 
     if (_.r.is(Transaction, raw)) { return raw; }
     if (_.r.is(Buffer, raw) || typeof raw === 'string') {
-      return new _.Parser(this._class).parse(raw);
+      return new _.Parser(this.constructor).parse(raw);
     }
 
     this.raw = Object.assign({
@@ -65,7 +64,7 @@ class Transaction extends Plugin.Host {
   get txin() { return _.r.pluck('txid', this.inputs); }
   get size() { return _.bn.from(this.buf.length); }
 
-  get clone() { return new (this._class)(Object.assign({}, this.raw)); }
+  get clone() { return new (this.constructor)(Object.assign({}, this.raw)); }
 
   get inputAmount() {
     return _.r.reduce((total, amount) => {
@@ -94,11 +93,16 @@ class Transaction extends Plugin.Host {
     return bytes.mul(this.feePerKB).div(_.bn.KB).add(_.bn.Byte);
   }
 
-  data(data) {
-    if(_.r.isNil(data)) {
+  data(...data) {
+    if(_.r.isEmpty(data)) {
       return _.r.pluck('data', this.outputs);
     } else {
-      let script = new (this._outputClass.Script)('data', data);
+      data = _.r.map((datum) => {
+        if(_.r.is(Array, datum)) { datum = Buffer.from(datum[0], datum[1]); }
+        if(_.r.is(String, datum)) { datum = Buffer.from(datum, 'utf8'); }
+        return datum;
+      }, data);
+      let script = new this.chain.Script('data', ...data);
       this.outputs.push(new Output({
         script,
         amount: 0,
@@ -120,7 +124,7 @@ class Transaction extends Plugin.Host {
 
   to(addr, amount) {
     let { hash } = _.addr.from(addr);
-    let script = new (this._outputClass.Script)('p2pkh', hash);
+    let script = new this.chain.Script('p2pkh', hash);
     this.outputs.push(new Output({
       script,
       amount,
@@ -135,8 +139,8 @@ class Transaction extends Plugin.Host {
       _.r.map((output) => { this.from(output); }, utxo);
       return this;
     }
-    if(!_.r.is(Output, utxo)) { utxo = new (this._outputClass)(utxo); }
-    let input = new (this._inputClass)({
+    if(!_.r.is(Output, utxo)) { utxo = new this.chain.Output(utxo); }
+    let input = new this.chain.Input({
       txid: utxo.txid,
       index: utxo.index,
       sequence: sequence
@@ -149,11 +153,11 @@ class Transaction extends Plugin.Host {
     let { hash } = _.addr.from(addr);
     if(_.r.isNil(this._changeIndex)) {
       this._changeIndex = this.outputs.length;
-      this.outputs.push(new (this._outputClass)());
+      this.outputs.push(new this.chain.Output());
     }
 
     let output = this.outputs[this._changeIndex];
-    output.script = new (this._outputClass.Script)('p2pkh', hash);
+    output.script = new this.chain.Script('p2pkh', hash);
     output.amount = this.unspent.sub(this._fee || this.suggestedFee);
 
     return this;
@@ -167,7 +171,7 @@ class Transaction extends Plugin.Host {
       let {signable, compressed} = input.signableBy(key);
       if (signable) {
         let sighash = this.sighash(index, type, useForkid);
-        input.script = new (this._inputClass.Script)('signature', key, sighash, type, compressed);
+        input.script = new this.chain.Script('signature', key, sighash, type, compressed);
       }
       return false;
     }, this.inputs);
@@ -195,29 +199,22 @@ class Transaction extends Plugin.Host {
   }
 
   static for(chain) {
-    const OutputClass = Output.for(chain);
-    const InputClass = Input.for(chain);
+    chain.Output = Output.for(chain);
+    chain.Input = Input.for(chain);
+    chain.Script = Script.for(chain);
 
     class TransactionClass extends Transaction {
-      get _chain() { return chain; }
-      get _class() { return TransactionClass; }
-
-      get _inputClass() { return InputClass; }
-      get _outputClass() { return OutputClass; }
+      static get chain() { return chain; }
 
       static template() {
         return [
           ['version', 'uint32le'],
-          ['inputs', [InputClass]],
-          ['outputs', [OutputClass]],
+          ['inputs', [chain.Input]],
+          ['outputs', [chain.Output]],
           ['locktime', 'uint32le']
         ];
       }
     }
-
-    TransactionClass.chain = chain;
-    TransactionClass.Input = InputClass;
-    TransactionClass.Output = OutputClass;
 
     return TransactionClass;
   }
