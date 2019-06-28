@@ -32,7 +32,8 @@
     "mocha": "^6.1.4"
   },
   "dependencies": {
-    "@keyring/util": "^0.1.0",
+    "@keyring/util": "^0.1.2",
     "ramda": "^0.26.1"
-  }
+  },
+  "gitHead": "27c318243da0bb5f2e06d61cbdc44e3785ac8dc0"
 }

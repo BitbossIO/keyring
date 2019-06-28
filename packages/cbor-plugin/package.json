@@ -28,13 +28,14 @@
     "url": "https://github.com/BitbossIO/keyring/issues"
   },
   "dependencies": {
-    "@keyring/plugin": "^0.1.0",
-    "@keyring/util": "^0.1.0",
+    "@keyring/plugin": "^0.1.2",
+    "@keyring/util": "^0.1.2",
     "borc": "^2.1.0"
   },
   "devDependencies": {
     "@keyring/transaction": "^0.1.2",
     "chai": "^4.2.0",
     "mocha": "^6.1.4"
-  }
+  },
+  "gitHead": "27c318243da0bb5f2e06d61cbdc44e3785ac8dc0"
 }

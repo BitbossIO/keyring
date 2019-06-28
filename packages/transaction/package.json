@@ -34,8 +34,9 @@
   },
   "dependencies": {
     "@keyring/chain": "^0.1.2",
-    "@keyring/plugin": "^0.1.0",
-    "@keyring/util": "^0.1.0",
+    "@keyring/plugin": "^0.1.2",
+    "@keyring/util": "^0.1.2",
     "ecc-tools": "^1.0.14"
-  }
+  },
+  "gitHead": "27c318243da0bb5f2e06d61cbdc44e3785ac8dc0"
 }
