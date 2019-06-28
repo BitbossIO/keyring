@@ -1,7 +1,7 @@
 {
   "name": "@keyring/msgpack-plugin",
   "version": "0.1.0",
-  "description": "> TODO: description",
+  "description": "Plugin for storing data in a transaction with msgpack encoding",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
   "license": "MIT",
