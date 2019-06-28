@@ -1,6 +1,6 @@
 {
   "name": "@keyring/validation-plugin",
-  "version": "0.0.19",
+  "version": "0.1.0",
   "description": "> TODO: description",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
@@ -28,11 +28,11 @@
     "url": "https://github.com/BitbossIO/keyring/issues"
   },
   "dependencies": {
-    "@keyring/plugin": "^0.0.19",
-    "@keyring/util": "^0.0.19"
+    "@keyring/plugin": "^0.1.0",
+    "@keyring/util": "^0.1.0"
   },
   "devDependencies": {
-    "@keyring/transaction": "^0.0.19",
+    "@keyring/transaction": "^0.1.0",
     "chai": "^4.2.0",
     "mocha": "^6.1.4"
   }
