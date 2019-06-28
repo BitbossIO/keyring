@@ -1,11 +1,19 @@
 # `@keyring/plugin`
 
-> TODO: description
+Base functionality for Keyring plugins and classes hosting plugins
 
 ## Usage
 
 ```
-const plugin = require('@keyring/plugin');
+const Plugin = require('@keyring/plugin');
 
-// TODO: DEMONSTRATE API
+// For a class that is hosting plugins
+class Transaction extends Plugin.Host {
+    ...
+}
+
+// For a class that is implementing plugin functionality
+class MsgpackPlugin extends Plugin.Provider {
+    ...
+}
 ```
