@@ -1,11 +1,11 @@
+const Chain = require('@keyring/chain');
 const Transaction = require('@keyring/transaction');
 
-class BSV {
-  static get Transaction() { return Transaction; }
+const BSV = new Chain({});
 
-  static use(provider, refresh) {
-    Transaction.use(provider, refresh);
-  }
+BSV.Transaction = Transaction.for(BSV);
+BSV.use = (provider, refresh) => {
+  BSV.Transaction.use(provider, refresh);
 };
 
 module.exports = BSV;

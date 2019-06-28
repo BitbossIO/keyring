@@ -113,6 +113,51 @@ class Transaction extends Plugin.Host {
     }
   }
 
+  files(data, type, filename, encoding) {
+    if(_.r.isNil(data)) {
+      let results = [];
+      this.data().forEach((datum, index) => {
+        if(
+          datum
+          && datum[0].toString() === '19HxigV4QyBv3tHpQVcUEQyq1pzZVdoAut'
+        ) {
+          results.push({
+            index: index,
+            data: datum[1],
+            type: (datum[2] || 'application/octet-stream').toString(),
+            encoding: (datum[3] || 'binary').toString(),
+            filename: (datum[4] ? datum[4].toString() : false)
+          });
+        }
+      });
+      return results;
+
+    } else {
+      if(_.r.is(String, data)) {
+        if(encoding === 'binary' || encoding === 'hex') {
+          data = Buffer.from(data, 'hex');
+          encoding = 'binary';
+        } else {
+          data = Buffer.from(data, 'UTF-8');
+          encoding = encoding || 'UTF-8';
+          type = type || 'text/plain';
+        }
+      }
+      let args = [
+        '19HxigV4QyBv3tHpQVcUEQyq1pzZVdoAut',
+        data,
+        (type || 'application/octet-stream')
+      ];
+      if (filename) {
+        args.push(encoding || 'binary');
+        args.push(filename);
+      } else if (encoding) {
+        args.push(encoding);
+      }
+      return this.data(...args);
+    }
+  }
+
   fee(amount) {
     if (_.r.isNil(amount)) {
       return this._fee || this.unspent;

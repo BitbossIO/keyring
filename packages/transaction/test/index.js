@@ -158,6 +158,28 @@ describe('Transaction', () => {
     });
   });
 
+  describe('file', () => {
+    it('should add file output', () => {
+      let tx = new Transaction();
+      let txin = new Transaction(txhex);
+      tx.from(txin.outputs[1]);
+      tx.files('hello world');
+      expect(tx.data()[0][1].toString()).to.equal('hello world');
+    });
+
+    it('should read files', () => {
+      let tx = new Transaction();
+      let txin = new Transaction(txhex);
+      tx.from(txin.outputs[1]);
+      tx.files('{ "hello": "world" }', 'application/json', 'test.json');
+      console.log(tx.files());
+      expect(tx.files()[0].data.toString()).to.equal('{ "hello": "world" }');
+      expect(tx.files()[0].type).to.equal('application/json');
+      expect(tx.files()[0].encoding).to.equal('UTF-8');
+      expect(tx.files()[0].filename).to.equal('test.json');
+    });
+  });
+
   describe('sign', () => {
     it('should sign all possible inputs', () => {
       let inAddr = _.addr.format(hash);

@@ -7,7 +7,7 @@ const Transaction = require('@keyring/transaction');
 const cbor = require('borc');
 
 
-describe('@keyring/msgpack-plugin', () => {
+describe('@keyring/cbor-plugin', () => {
   describe('init', () => {
     it('should add .cbor to transaction', () => {
       Transaction.use(new CBORPlugin());
@@ -22,7 +22,7 @@ describe('@keyring/msgpack-plugin', () => {
       let tx = new Transaction();
       tx.cbor({hello: 'world'});
 
-      expect(cbor.decode(tx.data()[0])).to.eql({hello: 'world'});
+      expect(cbor.decode(tx.data()[0][1])).to.eql({hello: 'world'});
     });
 
     it('should read cbor encoded data', () => {

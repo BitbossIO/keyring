@@ -27,6 +27,7 @@
     "url": "https://github.com/BitbossIO/keyring/issues"
   },
   "dependencies": {
+    "@keyring/chain": "^0.0.19",
     "@keyring/transaction": "^0.0.19"
   }
 }

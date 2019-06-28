@@ -22,7 +22,7 @@ describe('@keyring/msgpack-plugin', () => {
       let tx = new Transaction();
       tx.msgpack({hello: 'world'});
 
-      expect(msgpack.decode(tx.data()[0])).to.eql({hello: 'world'});
+      expect(msgpack.decode(tx.data()[0][1])).to.eql({hello: 'world'});
     });
 
     it('should read msgpack encoded data', () => {

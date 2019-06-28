@@ -20,13 +20,24 @@ class TransactionFacet {
       if(_.r.isNil(data)) {
         let results = [];
         tx.data().forEach((datum) => {
-          try {
-            results.push(cbor.decode(datum));
-          } catch (err) {}
+          if(
+            datum
+            && datum[0].toString() === '19HxigV4QyBv3tHpQVcUEQyq1pzZVdoAut'
+            && datum[2].toString() == 'application/cbor'
+          ) {
+            try {
+              results.push(cbor.decode(datum[1]));
+            } catch (err) {}
+          }
         });
         return results;
       } else {
-        return tx.data(cbor.encode(data));
+        return tx.data(
+          '19HxigV4QyBv3tHpQVcUEQyq1pzZVdoAut',
+          cbor.encode(data),
+          'application/cbor',
+          'binary'
+        );
       }
     };
   }
