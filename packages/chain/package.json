@@ -1,6 +1,6 @@
 {
   "name": "@keyring/chain",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Base chain for configuring keyring",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
