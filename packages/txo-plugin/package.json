@@ -1,6 +1,6 @@
 {
   "name": "@keyring/txo-plugin",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "> TODO: description",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
@@ -28,11 +28,11 @@
     "url": "https://github.com/BitbossIO/keyring/issues"
   },
   "dependencies": {
-    "@keyring/plugin": "^0.1.3",
-    "@keyring/util": "^0.1.3"
+    "@keyring/plugin": "^0.1.4",
+    "@keyring/util": "^0.1.4"
   },
   "devDependencies": {
-    "@keyring/transaction": "^0.1.3",
+    "@keyring/transaction": "^0.1.4",
     "chai": "^4.2.0",
     "mocha": "^6.1.4"
   },

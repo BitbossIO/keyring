@@ -1,6 +1,6 @@
 {
   "name": "@keyring/cbor-plugin",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Plugin for storing data in a transaction with cbor encoding",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
@@ -28,12 +28,12 @@
     "url": "https://github.com/BitbossIO/keyring/issues"
   },
   "dependencies": {
-    "@keyring/plugin": "^0.1.3",
-    "@keyring/util": "^0.1.3",
+    "@keyring/plugin": "^0.1.4",
+    "@keyring/util": "^0.1.4",
     "borc": "^2.1.0"
   },
   "devDependencies": {
-    "@keyring/transaction": "^0.1.3",
+    "@keyring/transaction": "^0.1.4",
     "chai": "^4.2.0",
     "mocha": "^6.1.4"
   },
