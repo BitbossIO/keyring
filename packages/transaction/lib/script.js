@@ -7,7 +7,6 @@ class Script {
   get chain() { return this.constructor.chain; }
   static get chain() { return StandardChain; }
 
-
   constructor(raw='', ...args) {
     if(raw instanceof Script) { return raw; }
     return this.set(raw, ...args);

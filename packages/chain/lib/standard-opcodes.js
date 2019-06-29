@@ -19,6 +19,7 @@ StandardOpcodes[0x00]  = {
 
 StandardOpcodes[0x4c] = {
   identifier: 'OP_PUSHDATA1',
+  identifiers: ['DATA'],
   take: Next('uint8'), // bytes
   extra: PushDataLen('uint8'),
   group: '<data>'
@@ -26,6 +27,7 @@ StandardOpcodes[0x4c] = {
 
 StandardOpcodes[0x4d] = {
   identifier: 'OP_PUSHDATA2',
+  identifiers: ['DATA'],
   take: Next('uint16le'), // bytes
   extra: PushDataLen('uint16le'),
   group: '<data>'
@@ -33,6 +35,7 @@ StandardOpcodes[0x4d] = {
 
 StandardOpcodes[0x4e] = {
   identifier: 'OP_PUSHDATA4',
+  identifiers: ['DATA'],
   take: Next('uint32le'), // bytes
   extra: PushDataLen('uint32le'),
   group: '<data>'

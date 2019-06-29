@@ -159,7 +159,7 @@ describe('Transaction', () => {
   });
 
   describe('file', () => {
-    it('should add file output', () => {
+    it('should add file output for String', () => {
       let tx = new Transaction();
       let txin = new Transaction(txhex);
       tx.from(txin.outputs[1]);
@@ -167,12 +167,28 @@ describe('Transaction', () => {
       expect(tx.data()[0][1].toString()).to.equal('hello world');
     });
 
+    it('should add file output for Buffer', () => {
+      let tx = new Transaction();
+      let txin = new Transaction(txhex);
+      tx.from(txin.outputs[1]);
+      tx.files(Buffer.from('deadbeef', 'hex'));
+      expect(tx.data()[0][1]).to.eql(Buffer.from('deadbeef', 'hex'));
+    });
+
+    it('should add file output for larger Buffer', () => {
+      let tx = new Transaction();
+      let txin = new Transaction(txhex);
+      tx.from(txin.outputs[1]);
+      tx.files(Buffer.alloc(1024), 'text/plain');
+      expect(tx.data()[0][1]).to.eql(Buffer.alloc(1024));
+      expect(tx.data()[0][2].toString()).to.eql('text/plain');
+    });
+
     it('should read files', () => {
       let tx = new Transaction();
       let txin = new Transaction(txhex);
       tx.from(txin.outputs[1]);
       tx.files('{ "hello": "world" }', 'application/json', 'test.json');
-      console.log(tx.files());
       expect(tx.files()[0].data.toString()).to.equal('{ "hello": "world" }');
       expect(tx.files()[0].type).to.equal('application/json');
       expect(tx.files()[0].encoding).to.equal('UTF-8');
