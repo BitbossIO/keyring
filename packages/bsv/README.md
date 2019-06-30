@@ -59,15 +59,25 @@ tx.change(address);
 ```
 
 ### Set OP_RETURN data
-Set data into an OP_RETURN as a node.js Buffer value.
+Set data into the OP_RETURN as a node.js Buffer value.
 ```
 tx.data(Buffer.from(myDataAsString));
 ```
 
-Note that you can also chain together Transaction method calls, for example:
+Set B:// protocol formatted file data into the OP_RETURN.  
 ```
-tx.to(address, satoshis).change(address).data(Buffer.from(myDataAsString));
+tx.files(rawData, 'image/jpg', 'rockies.jpg', 'binary');
 ```
+The arguments for the files method are: 
+* file data as a Buffer
+* file type
+* file name
+* encoding 
+
+Example file type values: image/jpg, text/plain, application/octet-stream, application/msgpack, application/cbor 
+Example encoding values: binary, hex 
+
+Both the MsgPack and CBOR plugins will recognize the B:// protocol format when reading in a raw transaction and will parse the file data if the file type is set to application/msgpack or application/cbor respectively.
 
 
 ### Sign and Serialize the Transaction
@@ -77,3 +87,10 @@ tx.sign(privKey);
 const serializedTx = tx.hex;
 // send serializedTx...
 ```
+
+### Chaining together method calls
+Note that you can also chain together Transaction method calls, for example:
+```
+tx.to(address, satoshis).change(address).data(Buffer.from(myDataAsString));
+```
+
