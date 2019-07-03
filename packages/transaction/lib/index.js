@@ -7,7 +7,7 @@ const Output = require('./output');
 const Script = require('./script');
 const Sighash = require('./sighash');
 
-const Plugin = require('@keyring/Plugin');
+const Plugin = require('@keyring/plugin');
 
 class Transaction extends Plugin.Host {
   get chain() { return this.constructor.chain; }
