@@ -10,6 +10,7 @@ const alias = {
   modules:    path.resolve(APP_PATH, 'modules'),
   assets:     path.resolve(APP_PATH, 'assets'),
   services:   path.resolve(APP_PATH, 'services'),
+  helpers:   path.resolve(APP_PATH, 'helpers'),
 };
 
 module.exports = {

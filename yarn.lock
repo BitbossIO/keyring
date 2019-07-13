@@ -1243,9 +1243,12 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@msgpack/msgpack@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@msgpack/msgpack/-/msgpack-1.1.0.tgz#5dfdd72c4f136bf2cf05d91b4f39804659df135f"
+"@msgpack/msgpack@^1.1.2":
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/@msgpack/msgpack/-/msgpack-1.4.5.tgz#c30a5e063db38008b36f6be9cb1fda6777bc859c"
+  integrity sha512-JjXgMG+b0iSwCfkrdb4lfuNY/08brczA4pxiGi6OXsUt87eGa4YDTwl2ZNC43ApeVAGaANnbCbgsw5vvgAcISg==
+  dependencies:
+    base64-js "^1.3.0"
 
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
@@ -1796,7 +1799,7 @@ base-x@^3.0.2:
   dependencies:
     safe-buffer "^5.0.1"
 
-base64-js@^1.0.2:
+base64-js@^1.0.2, base64-js@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.3.0.tgz#cab1e6118f051095e58b5281aea8c1cd22bfc0e3"
   integrity sha512-ccav/yGvoa80BQDljCxsmmQ3Xvx60/UpBIij5QN21W3wBi/hhIC9OoO+KLpu9IJTS9j4DRVJ3aDDF9cMSoa2lw==

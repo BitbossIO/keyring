@@ -11,7 +11,7 @@
     "build": "export NODE_ENV=production && webpack --config ./webpack.prod.js"
   },
   "dependencies": {
-    "@keyring/bsv": "^0.0.19",
+    "@keyring/bsv": "^0.1.4",
     "classnames": "^2.2.6",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
