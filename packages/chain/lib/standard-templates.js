@@ -56,6 +56,32 @@ const StandardTemplates = [
     }
   },
   {
+    id: 'false-data',
+    fingerprint: 'OP_FALSE OP_RETURN <data>',
+    patterns: [
+      'OP_FALSE OP_RETURN DATA',
+      'OP_FALSE OP_RETURN DATA DATA',
+      'OP_FALSE OP_RETURN DATA DATA DATA',
+      'OP_FALSE OP_RETURN DATA DATA DATA DATA',
+      'OP_FALSE OP_RETURN DATA DATA DATA DATA DATA',
+      'OP_FALSE OP_RETURN DATA DATA DATA DATA DATA DATA',
+      'OP_FALSE OP_RETURN DATA DATA DATA DATA DATA DATA DATA',
+      'OP_FALSE OP_RETURN DATA DATA DATA DATA DATA DATA DATA DATA'
+    ],
+    data(script) {
+      let data = _.r.pluck('data', script.opcodes);
+      data.shift();
+      data.shift();
+      return data;
+    },
+    init(...data) {
+      data = this.chain.opcodes.fromData(...data);
+      data.unshift(this.chain.opcodes.get('OP_RETURN')[0]);
+      data.unshift(this.chain.opcodes.get('OP_FALSE')[0]);
+      return Buffer.concat(_.r.pluck('buf', data));
+    }
+  },
+  {
     id: 'blank',
     fingerprint: '',
     patterns: [''],

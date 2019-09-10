@@ -1,7 +1,9 @@
 const Chain = require('@keyring/chain');
 const Transaction = require('@keyring/transaction');
 
-const BSV = new Chain({});
+const BSV = new Chain({
+  dataMode: 'false-data'
+});
 
 BSV.Transaction = Transaction.for(BSV);
 BSV.use = (provider, refresh) => {

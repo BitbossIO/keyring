@@ -12,6 +12,7 @@ class Chain {
   constructor(config={}) {
     this.config = Object.assign(config, Standard);
 
+    this.dataMode = config.dataMode || 'data';
     this.opcodes = new OpcodeCollection(config.opcodes);
     this.templates = new TemplateCollection(this, config.templates);
   }
