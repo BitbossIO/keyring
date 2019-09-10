@@ -1,6 +1,6 @@
 {
   "name": "@keyring/validation-plugin",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "> TODO: description",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
@@ -32,7 +32,7 @@
     "@keyring/util": "^0.1.4"
   },
   "devDependencies": {
-    "@keyring/transaction": "^0.1.4",
+    "@keyring/transaction": "^0.1.5",
     "chai": "^4.2.0",
     "mocha": "^6.1.4"
   },
