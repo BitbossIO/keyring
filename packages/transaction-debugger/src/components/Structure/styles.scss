@@ -1,0 +1,86 @@
+$blue: #3f5e91;
+$grey: grey;
+
+$input: #9178ff;
+$output: #bd4c3d;
+
+.root {
+  color: #CCC;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+.part {
+  position: relative;
+  line-height: 26px;
+  padding: 4px;
+  &.nested {
+    padding: 2px;
+  }
+  &:hover {
+    color: #FFF;
+    background: $blue;
+    &.nested {
+      background: $grey;
+      border-bottom: none;
+    }
+    &>.tooltip {
+      display: block;
+    }
+  }
+
+}
+.tooltip {
+  z-index: 99;
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(100% + 7px);
+  background: $blue;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: $blue;
+  }
+  &.top {
+    bottom: calc(100% + 7px);
+    background: $grey;
+    top: initial;
+    &::after {
+      border-bottom-color: transparent;
+      border-top-color: $grey;
+      top: 100%;
+      bottom: initial;
+    }
+  }
+}
+
+.input {
+  &:hover, .tooltip:not(.top) {
+    background: $input;
+  }
+  .tooltip:not(.top)::after {
+    border-bottom-color: $input;
+  }
+}
+.output {
+  &:hover, .tooltip:not(.top) {
+    background: $output;
+  }
+  .tooltip:not(.top)::after {
+    border-bottom-color: $output;
+  }
+}

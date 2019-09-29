@@ -12,12 +12,14 @@ class Reader {
   }
 
   get buf() { return this._buf; }
+  get lastRead() { return this._lastReadPart; }
   get hex() { return this._buf.toString('hex'); }
   get eof() { return this._pos >= this._buf.length; }
 
   read(len, handler='slice') {
     len = parseInt(len);
     let buf = this._buf[handler](this._pos, this._pos + len);
+    this._lastReadPart = this._buf.slice(this._pos, this._pos + len).toString('hex');
     this._pos += len;
     return buf;
   }

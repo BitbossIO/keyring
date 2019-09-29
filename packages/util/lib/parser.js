@@ -23,15 +23,18 @@ class Parser {
         result[key] = this._parse(reader, val);
       } else if (R.is(Array, val)) {
         val = val.length === 1 && R.is(Function, val[0]) ? val[0] : val;
+        const length = reader.varint().toNumber();
+        result.raw[`${key}Length`] = reader.lastRead;
         result[key] = R.times((i) => {
           return this._parse(reader, val, i);
-        }, reader.varint().toNumber());
+        }, length);
       } else {
         let [type, ...args] = val.split(':');
         result[key] = reader[type](...args);
+        result.raw[key] = reader.lastRead;
       }
       return result;
-    }, {}, (template));
+    }, { raw: {} }, (template));
     return klass ? new klass(result) : result;
   }
 };
