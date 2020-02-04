@@ -11,7 +11,7 @@ const Plugin = require('@keyring/plugin');
 
 class Transaction extends Plugin.Host {
   get chain() { return this.constructor.chain; }
-  static get chain() { return { Input, Output, Script, dataMode: 'data' }; }
+  static get chain() { return { Input, Output, Script, dataMode: 'false-data' }; }
 
   get _defaultFeePerKB() { return _.bn.from(1024); }
 
