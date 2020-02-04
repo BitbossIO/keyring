@@ -1,6 +1,6 @@
 {
   "name": "@keyring/transaction",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Keyring transaction package",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
@@ -33,9 +33,9 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "@keyring/chain": "^0.1.6",
-    "@keyring/plugin": "^0.1.4",
-    "@keyring/util": "^0.1.4",
+    "@keyring/chain": "^0.2.0",
+    "@keyring/plugin": "^0.2.0",
+    "@keyring/util": "^0.2.0",
     "ecc-tools": "^1.0.14"
   },
   "gitHead": "87c6e9b97dcce546d3633371c78bace73adab4a2"

@@ -1,6 +1,6 @@
 {
   "name": "@keyring/msgpack-plugin",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Plugin for storing data in a transaction with msgpack encoding",
   "author": "Josh Robinson <hexorx@gmail.com>",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
@@ -28,12 +28,12 @@
     "url": "https://github.com/BitbossIO/keyring/issues"
   },
   "dependencies": {
-    "@keyring/plugin": "^0.1.4",
-    "@keyring/util": "^0.1.4",
+    "@keyring/plugin": "^0.2.0",
+    "@keyring/util": "^0.2.0",
     "@msgpack/msgpack": "^1.1.2"
   },
   "devDependencies": {
-    "@keyring/transaction": "^0.1.6",
+    "@keyring/transaction": "^0.2.0",
     "chai": "^4.2.0",
     "mocha": "^6.1.4"
   },
