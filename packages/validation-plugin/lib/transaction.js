@@ -36,7 +36,7 @@ class TransactionFacet {
       // Check that all inputs are signed
       if (options.inputsAreSigned) {
         tx.inputs.forEach((input, index) => {
-          if (input.script.template.id !== 'signature') {
+          if (!input.script.template || input.script.template.id !== 'signature') {
             tx.errors.push({
               index,
               key: 'inputsAreSigned',

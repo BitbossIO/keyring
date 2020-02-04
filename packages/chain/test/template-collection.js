@@ -16,7 +16,7 @@ describe('template-collection', () => {
 
     it('should add templates to instance', () => {
       let tpls = new TemplateCollection(chain, Templates);
-      expect(tpls.length).to.equal(5);
+      expect(tpls.length).to.equal(6);
     });
   });
 

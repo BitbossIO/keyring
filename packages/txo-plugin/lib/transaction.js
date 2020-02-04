@@ -57,7 +57,7 @@ class TransactionFacet {
                 xput['s' + index] = opcode.data.toString('utf8');
               }
             } else {
-              xput['b' +index] = { op: opcode.code[0] };
+              xput['b' +index] = { op: opcode.code };
             }
           });
 

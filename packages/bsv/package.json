@@ -21,7 +21,6 @@
     "url": "git+https://github.com/BitbossIO/keyring.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/BitbossIO/keyring/issues"
