@@ -1,3 +1,5 @@
+"use strict";
+
 const _ = require('@keyring/util');
 _.ecc = require('ecc-tools');
 _.hash = _.ecc;
@@ -11,7 +13,6 @@ const Plugin = require('@keyring/plugin');
 
 class Transaction extends Plugin.Host {
   get chain() { return this.constructor.chain; }
-  static get chain() { return { Input, Output, Script, dataMode: 'false-data' }; }
 
   get _defaultFeePerKB() { return _.bn.from(1024); }
 
@@ -265,7 +266,7 @@ class Transaction extends Plugin.Host {
   }
 }
 
-Transaction.chain = false;
+Transaction.chain = { Input, Output, Script, dataMode: 'false-data' };
 Transaction.Sighash = Sighash;
 
 module.exports = Transaction;
