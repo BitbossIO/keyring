@@ -2,7 +2,7 @@
   "name": "@keyring/transaction",
   "version": "0.2.1",
   "description": "Keyring transaction package",
-  "author": "Josh Robinson <hexorx@gmail.com>",
+  "author": "BitBoss",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
   "license": "MIT",
   "main": "lib/index.js",

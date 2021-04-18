@@ -2,7 +2,7 @@
   "name": "@keyring/chain",
   "version": "0.2.0",
   "description": "Base chain for configuring keyring",
-  "author": "Josh Robinson <hexorx@gmail.com>",
+  "author": "BitBoss",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
   "license": "MIT",
   "main": "lib/index.js",

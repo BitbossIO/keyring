@@ -2,7 +2,7 @@
   "name": "@keyring/bsv",
   "version": "0.2.1",
   "description": "Library for working with BSV",
-  "author": "Josh Robinson <hexorx@gmail.com>",
+  "author": "BitBoss",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
   "license": "MIT",
   "main": "lib/index.js",
