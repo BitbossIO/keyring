@@ -1,6 +1,6 @@
 {
   "name": "@keyring/transaction",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Keyring transaction package",
   "author": "BitBoss",
   "homepage": "https://github.com/BitbossIO/keyring#readme",
