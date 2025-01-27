@@ -7,7 +7,7 @@ const chain = new Chain();
 
 const p2pkh = '76a914c86a5e5deaeefc79ef444d40bb896f7c6253e8ab88ac';
 const p2pkh_asm = 'OP_DUP OP_HASH160 c86a5e5deaeefc79ef444d40bb896f7c6253e8ab OP_EQUALVERIFY OP_CHECKSIG';
-const p2pkh_codes = new Buffer('76a91488ac', 'hex');
+const p2pkh_codes = Buffer.from('76a91488ac', 'hex');
 
 const p2pkhm = '76a91459288e0ec97813bab904867cdcae0d681f6cce5188ac1c73706b71ca325ab67a8f1decb61546a8950da859a08601000000000075';
 const p2pkhm_meta = '73706b71ca325ab67a8f1decb61546a8950da859a086010000000000';
@@ -52,7 +52,7 @@ describe('Script', () => {
   describe('buf', () => {
     it('should return the script buffer', () => {
       let script = new Script(p2pkh);
-      expect(script.buf).to.eql(new Buffer(p2pkh, 'hex'));
+      expect(script.buf).to.eql(Buffer.from(p2pkh, 'hex'));
     });
   });
 
